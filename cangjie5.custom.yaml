@@ -1,0 +1,32 @@
+patch:
+  #translator/enable_user_dict: false
+
+  switches/@next:
+    name: cangjie5_suggestion
+    reset: 0 #設置是否預設開啟 0為預設關閉 1為預設開啟
+    states: [ "🈚︎", "🈶️" ]
+
+  engine/filters/@before 0:
+    simplifier@cangjie5_suggestion
+
+  translator/+:
+    spelling_hints: 50
+    always_show_comments: true 
+
+  cangjie5_suggestion:
+    opencc_config: cangjie5hedam.json
+    option_name: cangjie5_suggestion
+    spelling_hints: 50
+    show_in_comment: true
+    always_show_comments: true 
+    tips: all
+    comment_format:
+        - xform/\+//
+        - xform/\｜\｜$/\｜/
+        - xform/\｜$//
+
+  key_binder/bindings/+:
+    - { when: always, accept: "Control+Shift+C", toggle: cangjie5_suggestion }
+    
+  "style/":
+    comment_font_point: 12 #設置註釋字體大小
